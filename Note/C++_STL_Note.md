@@ -2,6 +2,28 @@
 
 ## C-vector
 
+### 构造
+
+```c
+// c++11 初始化器列表语法：
+    std::vector<std::string> words1 {"the", "frogurt", "is", "also", "cursed"};
+    std::cout << "words1: " << words1 << '\n';
+ 
+    // words2 == words1
+    std::vector<std::string> words2(words1.begin(), words1.end());
+    std::cout << "words2: " << words2 << '\n';
+ 
+    // words3 == words1
+    std::vector<std::string> words3(words1);
+    std::cout << "words3: " << words3 << '\n';
+ 
+    // words4 为 {"Mo", "Mo", "Mo", "Mo", "Mo"}
+    std::vector<std::string> words4(5, "Mo");
+    std::cout << "words4: " << words4 << '\n';
+```
+
+
+
 ### 修改器
 
 #### clear
