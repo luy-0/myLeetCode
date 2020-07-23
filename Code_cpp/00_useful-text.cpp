@@ -1,12 +1,18 @@
+
+
+// header
 #include <vector>
 #include <iostream>
 #include <map>
 using namespace std;
 
+//Vector main
 int main(int argc, char const *argv[])
 {
-    map<char,int> m;
-    m.insert({'8',1});
-    
+    vector<> myVector = {};
+    Solution mySolution;
+    mySolution.         (myVector)
     return 0;
 }
+
+  

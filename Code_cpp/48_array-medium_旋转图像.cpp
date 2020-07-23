@@ -7,11 +7,12 @@
 // @lc code=start
 #include <vector>
 using namespace std;
+/* 解法1:先转置, 再对称 双百
+    (i,j)->(j,n-1-i)
+*/
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
-    /* 思路1:
-    先转置, 再对称*/
         int len = matrix.size();
         //转置
         for (int i = 0; i < len-1; i++)
@@ -36,5 +37,27 @@ public:
         }
     }
 };
+
+/* 解法1优化 双百 更简洁
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int len=matrix.size(),high,low;
+        for(int i=0;i<len;i++)
+            for(int j=i;j<len;j++)    
+                swap( matrix[i][j],matrix[j][i]);
+        //转置,使用stl中的swap
+        for(int i=0;i<len;i++)
+        {
+            low=0;high=len-1;
+            while(low<high)    
+                swap( matrix[i][low++],matrix[i][high--]);
+            //对称,类似双指针?
+        }
+    }
+};
+*/
+
 // @lc code=end
 
