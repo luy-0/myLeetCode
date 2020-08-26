@@ -1,4 +1,4 @@
-
+/* 
 
 // header
 #include <vector>
@@ -11,8 +11,8 @@ int main(int argc, char const *argv[])
 {
     vector<> myVector = {};
     Solution mySolution;
-    mySolution.         (myVector)
+    mySolution.         (myVector);
     return 0;
-}
+} */
 
   
