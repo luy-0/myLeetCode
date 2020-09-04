@@ -4,6 +4,7 @@
         "iostream": "cpp",
         "map": "cpp",
         "ostream": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "xstring": "cpp"
     }
 }

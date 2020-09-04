@@ -8,12 +8,10 @@ int main(int argc, char const *argv[])
 {
 
     int count = 3;
-    for (size_t i = 0; i < count; i++)
-    {
-        cout<<i<<endl;
-        /* code */
-    }
-    
+
+    char ch = '0';
+    ch = ch | 0x20;
+    cout << ch ;
     return 0;
 }
 
