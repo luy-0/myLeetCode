@@ -205,6 +205,31 @@ std::cout << c;
 
 
 
+## C-queue
+
+| 元素访问                                                     |                                 |
+| ------------------------------------------------------------ | ------------------------------- |
+| [front](https://zh.cppreference.com/w/cpp/container/queue/front)() | 访问第一个元素 (公开成员函数)   |
+| [back](https://zh.cppreference.com/w/cpp/container/queue/back)() | 访问最后一个元素 (公开成员函数) |
+
+| 容量                                                         |                                       |
+| ------------------------------------------------------------ | ------------------------------------- |
+| [empty](https://zh.cppreference.com/w/cpp/container/queue/empty) | 检查底层的容器是否为空 (公开成员函数) |
+| [size](https://zh.cppreference.com/w/cpp/container/queue/size) | 返回容纳的元素数 (公开成员函数)       |
+
+| 修改器                                                       |                                   |
+| ------------------------------------------------------------ | --------------------------------- |
+| [push](https://zh.cppreference.com/w/cpp/container/queue/push) | 向队列尾部插入元素 (公开成员函数) |
+| [emplace](https://zh.cppreference.com/w/cpp/container/queue/emplace)(C++11) | 于尾部原位构造元素 (公开成员函数) |
+| [pop](https://zh.cppreference.com/w/cpp/container/queue/pop) | 删除首个元素 (公开成员函数)       |
+| [swap](https://zh.cppreference.com/w/cpp/container/queue/swap) | 交换内容 (公开成员函数)           |
+
+注: pop并不会返回队列首部的元素, 应当使用
+
+```
+element = q.front();q.pop();
+```
+
 
 
 ## C-map
