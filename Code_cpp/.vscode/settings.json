@@ -9,6 +9,7 @@
         "cstring": "cpp",
         "deque": "cpp",
         "queue": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "string": "cpp"
     }
 }
