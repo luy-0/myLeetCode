@@ -15,9 +15,16 @@
  * }
  */
 class Solution {
+    int diff;
+    int pre;
     public int getMinimumDifference(TreeNode root) {
+        diff = Integer.MAX_VALUE;
+        pre = -1;
 
+        
     }
+
+    p 
 }
 // @lc code=end
 

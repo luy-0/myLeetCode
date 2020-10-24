@@ -19,7 +19,6 @@ class Solution {
                 }
             }
         }
-
         return s.substring(beginIndex, beginIndex + maxlen);
     }
 

@@ -7,7 +7,6 @@
 // @lc code=start
 class Solution {
     public String reverseWords(String s) {
-
     }
 }
 // @lc code=end
