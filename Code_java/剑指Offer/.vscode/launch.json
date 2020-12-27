@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Offer34",
+            "request": "launch",
+            "mainClass": "Offer34",
+            "projectName": "剑指Offer_18a33a00"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Offer24",
             "request": "launch",
             "mainClass": "Offer24",

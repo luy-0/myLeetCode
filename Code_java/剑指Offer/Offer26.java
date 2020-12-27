@@ -1,58 +1,41 @@
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+
 
 public class Offer26 {
-    class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
+}
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+class Solution {
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        if (A == null || B == null) {
+            return false;
         }
+        if (A.val == B.val && isEqual(A, B)) {
+            return true;
+        }
+        boolean condition2 = isSubStructure(A.left, B);
+        boolean condition3 = isSubStructure(A.right, B);
+        return condition2 || condition3;
     }
 
-    class Solution {
-        public int[] reversePrint_1(ListNode head) {
-            if (head == null) {
-                return new int[0];
-            }
-            int len = 1;
-            ListNode node = head;
-            while (node.next != null) {
-                node = node.next;
-                len++;
-            }
-            node = head;
-            int[] ans = new int[len];
-            for (int i = len - 1; i >= 0; i--) {
-                ans[i] = node.val;
-                node = node.next;
-            }
-            return ans;
+    private boolean isEqual(TreeNode STree, TreeNode DTree) {
+        if(DTree == null){
+            return true;
         }
-
-        public int[] reversePrint_2(ListNode head) {
-            if (head == null) {
-                return new int[0];
-            }
-            Stack<ListNode> stack = new Stack<>();
-            ListNode node = head;
-            while (node != null) {
-                stack.push(node);
-                node = node.next;
-            }
-            int[] ans = new int[stack.size()];
-            int index = 0;
-            while (!stack.empty()) {
-                ans[index++] = stack.pop().val;
-            }
-            return ans;
+        if(STree == null){
+            return false;
         }
+        return (STree.val == DTree.val)
+            && isEqual(STree.left, DTree.left)
+            && isEqual(STree.right, DTree.right);
     }
-
-    public static void main(String[] args) {
-
-    }
-
 }

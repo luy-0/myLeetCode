@@ -1,6 +1,6 @@
 # 力扣解题笔记-剑指Offer系列
 
-## 树
+## 数组
 
 ### [03]数组中重复的数字
 
@@ -123,4 +123,156 @@
 2. 考虑以下情况：
    1. 链表不存在
    2. 链表只有一个节点
-3. 提示：哑节点(C语言语境下的"头指针")可以规避大部分特殊情况的判断。
+3. 提示：==哑节点(C语言语境下的"头指针")可以规避大部分特殊情况的判断。==
+
+## 树
+
+### [07] 重建二叉树
+
+> 输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
+
+1. 考察了二叉树的遍历特性。二叉树可以通过 前+中，或者 后+中 推断出整个二叉树的原样。知道 前+后 是不能推导出来的。
+2. ~~道理我都懂可是怎么能保证自己把代码写出来呢淦~~
+3. 这一题这次并没有写出来。说明自己代码能力没有跟上思维。
+
+
+
+
+
+### [26] 树的子结构
+
+> 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+>
+> B是A的子结构， 即 A中有出现和B相同的结构和节点值。
+
+1. 首先在A中找与B根节点相同的节点
+2. 然后判断A是否包含了整个 B
+
+```java
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        if (A == null || B == null) {
+            return false;
+        }
+        if (A.val == B.val && isEqual(A, B)) {
+            return true;
+        }
+        boolean condition2 = isSubStructure(A.left, B);
+        boolean condition3 = isSubStructure(A.right, B);
+        return condition2 || condition3;
+    }
+    private boolean isEqual(TreeNode STree, TreeNode DTree) {
+        if(DTree == null){
+            return true;
+        }
+        if(STree == null){
+            return false;
+        }
+        return (STree.val == DTree.val)
+            && isEqual(STree.left, DTree.left)
+            && isEqual(STree.right, DTree.right);
+    }
+```
+
+踩坑：
+
+1. 思路比较容易想到，但是提交了两次才改对。
+2. 第一次在于，在第二步的递归中，如果 B 为 null 了，说明已经找完了，返回成功。
+3. 第二次是，在第一步判断时，如果 B 是空节点，直接返回没找到。
+
+==判断空指针啊！在任意使用节点的成员属性时都要想想是否可能为 null！==
+
+### [33] 二叉搜索树的后序遍历序列
+
+> 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 `true`，否则返回 `false`。假设输入的数组的任意两个数字都互不相同。
+
+1. 输入只给出了一个整数数组，说明并不指定是哪个二叉树的后序遍历，而是 **是否有可能成为某个二叉树的后序遍历序列**。
+2. 即：判断这个序列是否满足后序序列的特性，最后一个数为根，剩下的结点应该先全部小于根，后全部大于根。
+3. 对于一个序列，首先获取其末尾元素。遍历并检查剩下的元素，先小后大。
+
+```java
+public boolean verifyPostorder(int[] postorder) {
+    return helper(postorder, 0, postorder.length);
+}
+private boolean helper(int[] postorder, int start,int end){
+        if(start >= end-1){
+            return true;
+        }
+        int root = postorder[end-1];
+        int index = -1;
+        for (int i = start; i < end-1; i++) {
+            if(postorder[i]>=root){
+                // 直到找到第一个大于等于根的
+                index = i;
+                break;
+            }
+        }
+        if(index != -1){
+            // 如果全部小于根，那么没必要走这一步
+            for (int i = index; i < end-1; i++) {
+                if(postorder[i]<root){
+                    // 之后不应该有小于根的
+                    return false;
+                }
+            }
+            return helper(postorder, start, index) && helper(postorder, index, end - 1);
+        }
+    	// 如果全部小于根，那么接着判断除了根的区间
+        return helper(postorder, start, end - 1);
+}
+```
+
+
+
+
+
+### [34] 二叉树中和为某一值的路径
+
+> 输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
+
+1. 其实大部分树的题目都是基于遍历的，这一点大家都知道。问题在于怎么解决掉非遍历的部分。
+2. 比如本题，问题在于，如何保存遍历下来的数组？如何在找到合适路径的时候把这个数组添加进结果集中？
+3. 答案是：在类中定义 res 和 path 列表，这样在不同的递归方法中可以共享资源。在新进入一个结点时，将 val 值放入 path 中，在离开时从 path 中移除最后的元素。
+4. 但是还会带来的问题是：由于列表是引用的，因此彼此的改变会改变已经存储好的路径。那么也就是说，将 path 放入 res 中时，必须要复制一份 path 才行。
+
+```java
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        helper(root, sum);
+        return ans;
+    }
+
+    void helper(TreeNode node, int sum) {
+        if (node == null) {
+            return;
+        }
+        path.add(node.val);
+        if (node.val == sum && node.left == null && node.right == null) {
+            ans.add(new ArrayList<>(path));
+        }
+        helper(node.left, sum - node.val);
+        helper(node.right, sum - node.val);
+        path.remove(path.size() - 1);
+        return;
+    }
+}
+```
+
+
+
+### [55] 二叉树的深度
+
+> 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+这还不叫送分题？？？
+
+```java
+public int maxDepth(TreeNode root) {
+    return (root == null) ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right))+1;
+}
+```
+
+
+
