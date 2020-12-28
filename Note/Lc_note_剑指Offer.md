@@ -276,3 +276,45 @@ public int maxDepth(TreeNode root) {
 
 
 
+### [27] 二叉树的镜像
+
+> 请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+
+简单题，递归遍历秒了。
+
+```java
+public TreeNode mirrorTree(TreeNode root) {
+    if(root == null){
+        return null;
+    }
+    TreeNode node = mirrorTree(root.right);
+    root.right = mirrorTree(root.left);
+    root.left = node;
+    return root;    
+}
+```
+
+### [28] 对称的二叉树
+
+> 请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+
+又在同一个地方坑了！是比较二叉树是否镜像！不是比较左右子树是否相同！
+
+需要递归的是：
+
+```java
+ helper(node1.left, node2.right)&&helper(node1.right, node2.left)
+```
+
+### [32] 从上到下打印二叉树
+
+> 从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+
+简单的层序遍历。一个队列用于层序，一个数组用于存数。
+
+> 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+
+需要处理一下：指在每层结束时记录当前队列长度，并在队列长度次后将当前 list 装载至 list\<list> 中。
+
+
+
